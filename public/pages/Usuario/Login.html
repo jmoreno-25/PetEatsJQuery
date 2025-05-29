@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - PetEats</title>
+  <link rel="stylesheet" href="/public/css/style.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <div id="header-container"></div>
+
+  <section class="login-seccion">
+    <section class="contenedor-flip" id="contenedorFlip">
+  <div class="login-card">
+    <img src="/public/img/avatar.png" class="login-avatar" alt="avatar">
+    <h2>Iniciar sesión</h2>
+    <div class="form-login">
+      <input type="email" id="loginCorreo" placeholder="Correo electrónico">
+      <input type="password" id="loginPassword" placeholder="Contraseña">
+      <p class="error-msg" id="loginError"></p>
+      <button class="btn-completar" onclick="iniciarSesion()">Ingresar</button>
+    </div>
+    <div class="registro-link">
+      ¿No tienes cuenta?
+      <a href="#" onclick="girarYRedirigir()">Regístrate aquí</a>
+    </div>
+  </div>
+</section>
+
+  </section>
+
+  <div id="footer-container"></div>
+
+  <script src="/public/js/usuario.js"></script>
+  <script>
+    fetch("/public/components/header.html")
+      .then(res => res.text())
+      .then(data => document.getElementById("header-container").innerHTML = data);
+
+    fetch("/public/components/footer.html")
+      .then(res => res.text())
+      .then(data => document.getElementById("footer-container").innerHTML = data);
+  </script>
+
+  <script>
+  function girarYRedirigir() {
+    const card = document.querySelector('.login-card');
+    card.classList.add('girar');
+    setTimeout(() => {
+      window.location.href = "/public/pages/Usuario/Registro.html";
+    }, 1000); // Espera a que termine la animación
+  }
+</script>
+<script>
+  function toggleMenu() {
+    const menu = document.querySelector('.menu');
+    menu.classList.toggle('mostrar');
+  }
+</script>
+
+</body>
+</html>

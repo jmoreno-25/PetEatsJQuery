@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registro - PetEats</title>
+  <link rel="stylesheet" href="/public/css/style.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <div id="header-container"></div>
+
+  <section class="registro-seccion">
+    <h2>Crear cuenta</h2>
+    <div class="form-registro">
+      <input type="text" id="registroCedula" placeholder="Cédula">
+      <input type="text" id="registroNombre" placeholder="Nombre">
+      <input type="text" id="registroApellido" placeholder="Apellido">
+      <input type="text" id="registroNombreUsuario" placeholder="Nombre de Usuario">
+      <input type="email" id="registroCorreo" placeholder="Correo electrónico">
+      <input type="tel" id="registroTelefono" placeholder="Teléfono">
+      <input type="password" id="registroPassword" placeholder="Contraseña">
+      <input type="password" id="registroConfirmar" placeholder="Confirmar contraseña">
+      <p class="error-msg" id="registroError"></p>
+      <button class="btn-completar" onclick="registrarUsuario()">Registrarse</button>
+    </div>
+    <div class="registro-link">
+      ¿Ya tienes cuenta? <a href="/public/pages/Usuario/Login.html">Inicia sesión</a>
+    </div>
+  </section>
+
+  <div id="footer-container"></div>
+
+  <script src="/public/js/usuario.js"></script>
+  <script>
+    fetch("/public/components/header.html")
+      .then(res => res.text())
+      .then(data => document.getElementById("header-container").innerHTML = data);
+
+    fetch("/public/components/footer.html")
+      .then(res => res.text())
+      .then(data => document.getElementById("footer-container").innerHTML = data);
+  </script>
+  <script>
+  function toggleMenu() {
+    const menu = document.querySelector('.menu');
+    menu.classList.toggle('mostrar');
+  }
+</script>
+
+</body>
+</html>

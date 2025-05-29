@@ -1,0 +1,176 @@
+<!-- /public/index.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PetEats - Inicio</title>
+  <link rel="stylesheet" href="/public/css/style.css" />
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+
+</head>
+<body>
+  <div id="header-container"></div>
+
+  <section class="vista_principal">
+    <div class="vista_principal_capa">
+      <div class="vista_principal_texto">
+        <h2>Bienvenido a PetEats</h2>
+        <p>Tu tienda de confianza para consentir a tus mascotas</p>
+      </div>
+    </div>
+  </section>
+
+<section class="seccion-categorias-3d">
+  <div class="bone-3d left">
+    <model-viewer 
+      src="/public/img/dog-biscuit.glb"
+      auto-rotate
+      rotation-per-second="30deg"
+      camera-controls
+      disable-zoom
+      exposure="0.9"
+      id="bone-left"
+      style="width: 100px; height: 100px;">
+    </model-viewer>
+  </div>
+
+  <div class="categorias-centro">
+    <h2>Categorías</h2>
+    <div class="contenedor-categorias">
+  <a class="categoria-tarjeta" href="/public/pages/Productos/Index.html?categoria=Alimento">
+    <img src="https://st2.depositphotos.com/5372232/7899/i/450/depositphotos_78997064-stock-photo-multicolored-dry-cat-or-dog.jpg" alt="Alimento">
+    <p>Alimento</p>
+  </a>
+  <a class="categoria-tarjeta" href="/public/pages/Productos/Index.html?categoria=Juguete">
+    <img src="https://i.pinimg.com/originals/39/36/04/3936046832eff2a639b460f1057c3249.jpg" alt="Juguete">
+    <p>Juguete</p>
+  </a>
+  <a class="categoria-tarjeta" href="/public/pages/Productos/Index.html?categoria=Accesorio">
+    <img src="https://feroz.com.co/cdn/shop/files/129_2048x.jpg?v=1738527586" alt="Accesorio">
+    <p>Accesorio</p>
+  </a>
+  <a class="categoria-tarjeta" href="/public/pages/Productos/Index.html?categoria=Camas">
+    <img src="https://faunasalud.cl/wp-content/uploads/2021/04/Diseno-sin-titulo-17.jpg" alt="Camas">
+    <p>Camas</p>
+  </a>
+  <a class="categoria-tarjeta" href="/public/pages/Productos/Index.html?categoria=Ropa">
+    <img src="https://minisomx.vtexassets.com/arquivos/ids/332957-800-800?v=638641284037930000&width=800&height=800&aspect=true" alt="Ropa">
+    <p>Ropa</p>
+  </a>
+</div>
+  </div>
+
+  <div class="bone-3d right">
+    <model-viewer 
+      src="/public/img/dog-biscuit.glb"
+      auto-rotate
+      rotation-per-second="30deg"
+      camera-controls
+      disable-zoom
+      exposure="0.9"
+      id="bone-right"
+      style="width: 100px; height: 100px;">
+    </model-viewer>
+  </div>
+</section>
+
+
+
+  <section class="productos_destacados">
+    <h2>Descubre nuestros productos destacados</h2>
+    <div class="contenedor_productos" id="productos-destacados">
+
+      <div class="tarjeta_producto">
+      </div>
+      
+    </div>
+ </section>
+  <section class="productos_destacados">
+    <h2>Descubre nuestras secciones</h2>
+    <div class="contenedor_productos">
+      <div class="tarjeta_producto">
+        <img src="/public/img/principal6.jpg" alt="Productos">
+        <h3>Productos</h3>
+        <p class="precio">Alimentos, juguetes, accesorios y más</p>
+        <p class="precio"> </p>
+        <p class="precio"> </p>
+        <a href="/public/pages/Productos/Index.html" class="boton_carrito">Ver productos</a>
+      </div>
+
+      <div class="tarjeta_producto">
+        <img src="/public/img/principal4.jpg" alt="Nosotros">
+        <h3>Sobre Nosotros</h3>
+        <p class="precio">Conoce nuestra historia y compromiso</p>
+        <p class="precio"> </p>
+        <p class="precio"> </p>
+        <a href="/public/pages/Nosotros/Index.html" class="boton_carrito">Conócenos</a>
+      </div>
+
+      <div class="tarjeta_producto">
+        <img src="/public/img/principal8.jpg" alt="Contacto">
+        <h3>Contáctanos</h3>
+        <p class="precio">¿Tienes dudas? ¡Estamos para ayudarte!</p>
+        <p class="precio"> </p>
+        <p class="precio"> </p>
+        <a href="/public/pages/Contacto/Index.html" class="boton_carrito">Ir al contacto</a>
+      </div>
+    </div>
+  </section>
+</section>
+
+
+  <div id="footer-container"></div>
+  
+  <script src="/public/js/Busqueda.js"></script>
+  <script src="/public/js/productos_destacados.js"></script>
+
+  <script>
+    fetch("/public/components/header.html")
+  .then(res => res.text())
+  .then(data => {
+    document.getElementById("header-container").innerHTML = data;
+    iniciarBusqueda(); // Ejecutamos la lógica del input después de insertarlo en el DOM
+  });
+
+
+    fetch("/public/components/footer.html")
+      .then(res => res.text())
+      .then(data => document.getElementById("footer-container").innerHTML = data);
+  </script>
+
+  <script>
+  function rotarHueso3D() {
+  let angle = 0;
+  setInterval(() => {
+    angle += 2; // velocidad más rápida
+    const rad = angle * (Math.PI / 180);
+
+    // Rango amplio de movimiento 3D
+    const x = (Math.sin(rad * 1.2) * 90).toFixed(2);
+    const y = (Math.cos(rad * 0.8) * 120).toFixed(2);
+    const z = (Math.sin(rad * 1.5) * 70).toFixed(2);
+
+    const rotacion = `${x}deg ${y}deg ${z}deg`;
+
+    const boneL = document.getElementById("bone-left");
+    const boneR = document.getElementById("bone-right");
+
+    if (boneL) boneL.setAttribute("camera-orbit", rotacion);
+    if (boneR) boneR.setAttribute("camera-orbit", `-${x}deg ${y}deg -${z}deg`);
+  }, 40); // menor intervalo para más fluidez
+}
+
+document.addEventListener("DOMContentLoaded", rotarHueso3D);
+
+</script>
+<script>
+  function toggleMenu() {
+    const menu = document.querySelector('.menu');
+    menu.classList.toggle('mostrar');
+  }
+</script>
+
+</body>
+</html>

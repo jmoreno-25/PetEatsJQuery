@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <title>Confirmación - PetEats</title>
+  <link rel="stylesheet" href="/public/css/style.css" />
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+
+</head>
+<body>
+  <div id="header-container"></div>
+
+  <section class="content">
+    <div class="texto-contacto">
+      <h3>¡Gracias por tu compra!</h3>
+      <p>Tu pedido ha sido confirmado exitosamente.</p>
+      <p>En breve recibirás un correo con los detalles.</p>
+      <a href="/index.html" class="btn-completar">Volver al inicio</a>
+    </div>
+  </section>
+
+  <div id="footer-container"></div>
+
+  <script>
+    fetch("/public/components/header.html")
+      .then(res => res.text())
+      .then(data => document.getElementById("header-container").innerHTML = data);
+
+    fetch("/public/components/footer.html")
+      .then(res => res.text())
+      .then(data => document.getElementById("footer-container").innerHTML = data);
+  </script>
+  <script>
+  function toggleMenu() {
+    const menu = document.querySelector('.menu');
+    menu.classList.toggle('mostrar');
+  }
+</script>
+
+</body>
+</html>

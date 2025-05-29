@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perfil de Usuario - PetEats</title>
+  <link rel="stylesheet" href="/public/css/style.css" />
+</head>
+<body>
+  <div id="header-container"></div>
+
+  <section class="perfil-usuario" id="perfil-usuario">
+    <h2>Mi Perfil</h2>
+    <div class="perfil-contenedor">
+      <div class="perfil-imagen">
+        <img src="/public/img/avatar.png" alt="avatar" />
+      </div>
+      <div class="perfil-detalles">
+        <h3>Detalles de la cuenta</h3>
+        <p><strong>Cédula:</strong> <span id="cedula"></span></p>
+        <p><strong>Nombre:</strong> <span id="nombre"></span></p>
+        <p><strong>Apellido:</strong> <span id="apellidoUsuario"></span></p>
+        <p><strong>Nombre de usuario:</strong> <span id="nombreUsuario"></span></p>
+        <p><strong>Correo:</strong> <span id="correoUsuario"></span></p>
+        <p><strong>Teléfono:</strong> <span id="telefonoUsuario"></span></p>
+        <button class="btn-cerrar-sesion" onclick="cerrarSesion()">Cerrar sesión</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="registro-seccion" id="mensaje-no-sesion" style="display: none;">
+    <h2>No has iniciado sesión</h2>
+    <a href="/public/pages/Usuario/Login.html" class="btn-completar">Iniciar sesión</a>
+  </section>
+
+  <div id="footer-container"></div>
+
+  <script>
+    fetch("/public/components/header.html")
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById("header-container").innerHTML = data;
+      });
+
+    fetch("/public/components/footer.html")
+      .then(res => res.text())
+      .then(data => document.getElementById("footer-container").innerHTML = data);
+  </script>
+
+  <script>
+    function cerrarSesion() {
+      sessionStorage.removeItem("usuario");
+      window.location.href = "/public/pages/Usuario/Login.html";
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const usuario = JSON.parse(sessionStorage.getItem("usuario"));
+      const contenedor = document.getElementById("perfil-usuario");
+      const sinSesion = document.getElementById("mensaje-no-sesion");
+
+      if (usuario) {
+        document.getElementById("cedula").textContent = usuario.CLI_CEDULA_RUC;
+        document.getElementById("nombre").textContent = usuario.CLI_NOMBRE;
+        document.getElementById("apellidoUsuario").textContent = usuario.CLI_APELLIDO;
+        document.getElementById("nombreUsuario").textContent = usuario.USUARIO_NOMBRE;
+        document.getElementById("correoUsuario").textContent = usuario.USUARIO_CORREO;
+        document.getElementById("telefonoUsuario").textContent = usuario.CLI_TELEFONO;
+        contenedor.style.display = "block";
+        sinSesion.style.display = "none";
+      } else {
+        contenedor.style.display = "none";
+        sinSesion.style.display = "block";
+      }
+    });
+  </script>
+  <script>
+  function toggleMenu() {
+    const menu = document.querySelector('.menu');
+    menu.classList.toggle('mostrar');
+  }
+</script>
+
+</body>
+</html>

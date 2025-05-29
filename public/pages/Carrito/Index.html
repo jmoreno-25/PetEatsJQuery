@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <title>Carrito - PetEats</title>
+  <link rel="stylesheet" href="/public/css/style.css" />
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+
+</head>
+<body>
+  <div id="header-container"></div>
+
+  <section class="content">
+    <h2 class="titulo">Mi Carrito</h2>
+    <div id="carrito-contenedor" class="contenedor_productos"></div>
+
+    <div class="total-carrito">
+      <h3>Total: $<span id="total-carrito">0.00</span></h3>
+      <button class="btn-completar" onclick="completarPedido()">Completar pedido</button>
+    </div>
+  </section>
+
+  <div id="footer-container"></div>
+
+  <script src="/public/js/carrito.js"></script>
+  <script>
+    fetch("/public/components/header.html")
+      .then(res => res.text())
+      .then(data => document.getElementById("header-container").innerHTML = data);
+
+    fetch("/public/components/footer.html")
+      .then(res => res.text())
+      .then(data => document.getElementById("footer-container").innerHTML = data);
+  </script>
+  <script>
+  function toggleMenu() {
+    const menu = document.querySelector('.menu');
+    menu.classList.toggle('mostrar');
+  }
+</script>
+
+</body>
+</html>

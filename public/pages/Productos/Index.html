@@ -1,0 +1,89 @@
+﻿<!-- /paginas/Productos/productos.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <title>Productos - PetEats</title>
+  <link rel="stylesheet" href="/public/css/style.css">
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+</head>
+<body>
+  <div id="header-container"></div>
+
+  <div class="content">
+    <div class="seccion-productos-3d">
+  <div class="modelo-lateral">
+    <model-viewer 
+      src="/public/img/toy-mouse.glb"
+      auto-rotate
+      rotation-per-second="25deg"
+      camera-controls
+      disable-zoom
+      exposure="0.9"
+      style="width: 100px; height: 100px;">
+    </model-viewer>
+  </div>
+
+  <h2 class="titulo">Nuestros Productos</h2>
+
+  <div class="modelo-lateral">
+    <model-viewer 
+      src="/public/img/cat.glb"
+      auto-rotate
+      rotation-per-second="25deg"
+      camera-controls
+      disable-zoom
+      exposure="0.9"
+      style="width: 100px; height: 100px;">
+    </model-viewer>
+  </div>
+</div>
+
+
+    <div class="filtro-categorias">
+  <div class="dropdown-categoria">
+    <div id="categoria-activa" class="categoria-activa"></div>
+    <select id="selectCategoria" class="select-categoria">
+      <option value="todas">Filtrar</option>
+    </select>
+  </div>
+</div>
+</div>
+
+    <div id="productos-container" class="contenedor_productos mt-4">
+      <!-- Aquí se cargan las tarjetas -->
+    </div>
+  </div>
+
+  <div id="footer-container"></div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="/public/js/menjar_carrito.js"></script>
+  <script src="/public/js/productos.js"></script>
+  <script src="/public/js/Busqueda.js"></script>
+
+  <script>
+    fetch("/public/components/header.html")
+  .then(res => res.text())
+  .then(data => {
+    document.getElementById("header-container").innerHTML = data;
+    iniciarBusqueda(); // Ejecutamos la lógica del input después de insertarlo en el DOM
+  });
+
+    fetch("/public/components/footer.html")
+      .then(res => res.text())
+      .then(data => document.getElementById("footer-container").innerHTML = data);
+  </script>
+  <script>
+  function toggleMenu() {
+    const menu = document.querySelector('.menu');
+    menu.classList.toggle('mostrar');
+  }
+</script>
+
+</body>
+</html>
