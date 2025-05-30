@@ -25,8 +25,8 @@ function renderizarProductos(lista) {
       <h3>${p.PRD_NOMBRE}</h3>
       <p class="precio">$${p.PRD_PRECIO.toFixed(2)}</p>
       <div class="acciones_producto">
-        <label for="cantidad-${p.PRD_STOCK}">Cantidad:</label>
-        <select id="cantidad-${p.PRD_STOCK}" class="cantidad_producto">
+        <label for="cantidad-${p.PRD_ID}">Cantidad:</label>
+        <select id="cantidad-${p.PRD_ID}" class="cantidad_producto">
           <option>1</option><option>2</option><option>3</option>
         </select>
       </div>

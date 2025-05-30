@@ -46,7 +46,7 @@ function registrarUsuario() {
   const password = document.getElementById("registroPassword").value.trim();
 
   $.ajax({
-    url: API_BASE_URL,  // Asegúrate de que API_BASE_URL termine sin "/"
+    url: API_BASE_URL,
     method: 'POST',
     contentType: 'application/json',
     data: JSON.stringify({
@@ -54,9 +54,9 @@ function registrarUsuario() {
       Nombre: nombre,
       Apellido: apellido,
       Telefono: telefono,
-      Usuario: usuario,
       Correo: correo,
-      Password: password
+      Password: password,
+      Usuario: usuario
     }),
     success: function (data) {
       sessionStorage.setItem("usuario", JSON.stringify({ nombre, usuario }));
