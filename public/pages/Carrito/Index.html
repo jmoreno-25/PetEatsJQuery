@@ -1,30 +1,57 @@
 ﻿<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="UTF-8" />
-  <title>Carrito - PetEats</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mi Carrito - PetEats</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="/public/css/style.css" />
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
-
+  <script src="/public/js/carrito.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
   <div id="header-container"></div>
 
-  <section class="content">
-    <h2 class="titulo">Mi Carrito</h2>
-    <div id="carrito-contenedor" class="contenedor_productos"></div>
+  <div class="container py-5">
+    <div class="row">
+      <!-- Carrito -->
+      <div class="col-lg-8 mb-4">
+        <h4 class="mb-3">Carrito de compras</h4>
+        <div id="carrito-contenedor" class="vstack gap-3"></div>
+      </div>
 
-    <div class="total-carrito">
-      <h3>Total: $<span id="total-carrito">0.00</span></h3>
-      <button class="btn-completar" onclick="completarPedido()">Completar pedido</button>
+      <!-- Resumen y pago -->
+      <div class="col-lg-4">
+        <div class="card shadow-sm border-0">
+          <div class="card-body">
+            <h5 class="card-title mb-3">Detalles de pago</h5>
+            <div class="mb-3">
+              <label for="cuenta" class="form-label">Número de cuenta bancaria</label>
+              <input type="text" class="form-control" id="cuenta" placeholder="Ingrese su número de cuenta" required>
+            </div>
+            <div class="d-flex justify-content-between">
+              <span>Subtotal</span>
+              <span id="subtotal">$0.00</span>
+            </div>
+            <div class="d-flex justify-content-between">
+              <span>IVA (15%)</span>
+              <span id="iva">$0.00</span>
+            </div>
+            <div class="border-top my-2"></div>
+            <div class="d-flex justify-content-between fw-bold mb-3">
+              <span>Total</span>
+              <span id="total">$0.00</span>
+            </div>
+            <button class="btn w-100 text-white" style="background-color: #B98046;" onclick="completarPedido()">Pagar</button>
+          </div>
+        </div>
+      </div>
     </div>
-  </section>
+  </div>
 
   <div id="footer-container"></div>
 
-  <script src="/public/js/carrito.js"></script>
   <script>
     fetch("/public/components/header.html")
       .then(res => res.text())
@@ -33,278 +60,62 @@
     fetch("/public/components/footer.html")
       .then(res => res.text())
       .then(data => document.getElementById("footer-container").innerHTML = data);
-  </script>
-  <script>
-  function toggleMenu() {
-    const menu = document.querySelector('.menu');
-    menu.classList.toggle('mostrar');
-  }
-</script>
 
+    function cargarCarrito() {
+      const contenedor = document.getElementById("carrito-contenedor");
+      const subtotalEl = document.getElementById("subtotal");
+      const ivaEl = document.getElementById("iva");
+      const totalEl = document.getElementById("total");
+
+      let carrito = JSON.parse(sessionStorage.getItem("carrito")) || [];
+      contenedor.innerHTML = "";
+
+      if (carrito.length === 0) {
+        contenedor.innerHTML = "<p>No hay productos en el carrito.</p>";
+        subtotalEl.textContent = "$0.00";
+        ivaEl.textContent = "$0.00";
+        totalEl.textContent = "$0.00";
+        return;
+      }
+
+      let subtotal = 0;
+
+      carrito.forEach(p => {
+        const sub = p.precio * p.cantidad;
+        subtotal += sub;
+
+        const item = document.createElement("div");
+        item.className = "d-flex align-items-center p-3 border rounded bg-white shadow-sm";
+        item.innerHTML = `
+          <img src="${p.imagen}" alt="${p.nombre}" class="me-3 rounded" style="width: 70px; height: 70px; object-fit: cover;">
+          <div class="flex-grow-1">
+            <h6 class="mb-1">${p.nombre}</h6>
+            <small class="text-muted">Cantidad: ${p.cantidad} &bull; Precio: $${p.precio.toFixed(2)}</small>
+          </div>
+          <div class="text-end">
+            <strong>$${sub.toFixed(2)}</strong><br>
+            <button class="btn btn-sm text-danger" onclick="eliminarProducto(${p.id})">&times;</button>
+          </div>
+        `;
+        contenedor.appendChild(item);
+      });
+
+      const iva = subtotal * 0.15;
+      const total = subtotal + iva;
+
+      subtotalEl.textContent = `$${subtotal.toFixed(2)}`;
+      ivaEl.textContent = `$${iva.toFixed(2)}`;
+      totalEl.textContent = `$${total.toFixed(2)}`;
+    }
+
+    function eliminarProducto(id) {
+      let carrito = JSON.parse(sessionStorage.getItem("carrito")) || [];
+      carrito = carrito.filter(p => p.id !== id);
+      sessionStorage.setItem("carrito", JSON.stringify(carrito));
+      cargarCarrito();
+    }
+
+    document.addEventListener("DOMContentLoaded", cargarCarrito);
+  </script>
 </body>
 </html>
-
-<!-- <!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Mi Carrito - PetEats</title>
-  <style>
-    /* Reset básico */
-    * {
-      box-sizing: border-box;
-      margin: 0; padding: 0;
-      font-family: Arial, sans-serif;
-    }
-
-    body {
-      background-color: #222;
-      color: #eee;
-      padding: 20px;
-      display: flex;
-      justify-content: center;
-      font-size: 14px;
-    }
-
-    .container {
-      display: flex;
-      max-width: 960px;
-      gap: 20px;
-      width: 100%;
-    }
-
-    /* Panel carrito */
-    .cart-panel {
-      flex: 2;
-      background-color: #333;
-      border-radius: 10px;
-      padding: 20px;
-    }
-
-    .cart-panel h2 {
-      margin-bottom: 15px;
-      font-weight: 700;
-      font-size: 24px;
-    }
-
-    .cart-item {
-      display: flex;
-      gap: 15px;
-      background-color: #444;
-      border-radius: 10px;
-      padding: 15px;
-      margin-bottom: 15px;
-      align-items: center;
-    }
-
-    .cart-item img {
-      width: 100px;
-      height: 80px;
-      object-fit: cover;
-      border-radius: 10px;
-      flex-shrink: 0;
-    }
-
-    .cart-item-details {
-      flex: 1;
-    }
-
-    .cart-item-details h3 {
-      font-weight: 600;
-      margin-bottom: 6px;
-      font-size: 18px;
-      color: #fff;
-    }
-
-    .cart-item-details p {
-      color: #bbb;
-      font-size: 13px;
-      margin-bottom: 4px;
-    }
-
-    .cart-item-qty {
-      font-weight: 600;
-      margin-bottom: 4px;
-      color: #ccc;
-    }
-
-    .cart-item-price {
-      font-weight: 700;
-      font-size: 16px;
-      color: #fff;
-      margin-left: 15px;
-      min-width: 70px;
-      text-align: right;
-      flex-shrink: 0;
-    }
-
-    .cart-item-subtotal {
-      font-weight: 600;
-      font-size: 14px;
-      color: #ddd;
-      margin-left: 15px;
-      flex-shrink: 0;
-      text-align: right;
-      min-width: 90px;
-    }
-
-    .btn-delete {
-      background: transparent;
-      border: none;
-      cursor: pointer;
-      color: #bbb;
-      font-size: 20px;
-      margin-left: 10px;
-      transition: color 0.3s;
-      flex-shrink: 0;
-    }
-
-    .btn-delete:hover {
-      color: #ff5555;
-    }
-
-    /* Panel resumen */
-    .summary-panel {
-      flex: 1;
-      background-color: #3a6ee8;
-      border-radius: 10px;
-      color: white;
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .summary-panel h2 {
-      font-weight: 700;
-      margin-bottom: 20px;
-    }
-
-    .summary-row {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 10px;
-      font-size: 16px;
-    }
-
-    .summary-row.total {
-      font-weight: 700;
-      font-size: 20px;
-      border-top: 1px solid rgba(255,255,255,0.4);
-      padding-top: 12px;
-      margin-top: 12px;
-    }
-
-    .btn-checkout {
-      background-color: #62b0ff;
-      border: none;
-      padding: 12px;
-      border-radius: 8px;
-      font-weight: 700;
-      color: #fff;
-      cursor: pointer;
-      font-size: 18px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 10px;
-      margin-top: 20px;
-      transition: background-color 0.3s;
-    }
-
-    .btn-checkout:hover {
-      background-color: #478be3;
-    }
-  </style>
-</head>
-<body>
-
-  <div class="container">
-    <section class="cart-panel">
-      <h2>Shopping Cart</h2>
-      <div id="carrito-contenedor">
-        <!-- Aquí se cargarán los productos -->
-      </div>
-    </section>
-
-    <aside class="summary-panel">
-      <h2>Order Summary</h2>
-      <div class="summary-row">
-        <span>Subtotal</span>
-        <span id="subtotal">$0.00</span>
-      </div>
-      <div class="summary-row">
-        <span>IVA (15%)</span>
-        <span id="iva">$0.00</span>
-      </div>
-      <div class="summary-row total">
-        <span>Total</span>
-        <span id="total">$0.00</span>
-      </div>
-      <button class="btn-checkout" onclick="completarPedido()">Checkout ➔</button>
-    </aside>
-  </div>
-
-<script>
-  function cargarCarrito() {
-    const contenedor = document.getElementById("carrito-contenedor");
-    const subtotalEl = document.getElementById("subtotal");
-    const ivaEl = document.getElementById("iva");
-    const totalEl = document.getElementById("total");
-
-    let carrito = JSON.parse(sessionStorage.getItem("carrito")) || [];
-    contenedor.innerHTML = "";
-
-    if (carrito.length === 0) {
-      contenedor.innerHTML = "<p>No hay productos en el carrito.</p>";
-      subtotalEl.textContent = "$0.00";
-      ivaEl.textContent = "$0.00";
-      totalEl.textContent = "$0.00";
-      return;
-    }
-
-    let subtotal = 0;
-
-    carrito.forEach(p => {
-      const sub = p.precio * p.cantidad;
-      subtotal += sub;
-
-      const item = document.createElement("div");
-      item.className = "cart-item";
-      item.innerHTML = `
-        <img src="${p.imagen}" alt="${p.nombre}" />
-        <div class="cart-item-details">
-          <h3>${p.nombre}</h3>
-          <p>Cantidad: <strong>${p.cantidad}</strong></p>
-          <p>Precio Unitario: $${p.precio.toFixed(2)}</p>
-        </div>
-        <div class="cart-item-price">$${p.precio.toFixed(2)}</div>
-        <div class="cart-item-subtotal">$${sub.toFixed(2)}</div>
-        <button class="btn-delete" onclick="eliminarProducto(${p.id})" title="Eliminar producto">&times;</button>
-      `;
-      contenedor.appendChild(item);
-    });
-
-    const iva = subtotal * 0.15;
-    const totalFinal = subtotal + iva;
-
-    subtotalEl.textContent = `$${subtotal.toFixed(2)}`;
-    ivaEl.textContent = `$${iva.toFixed(2)}`;
-    totalEl.textContent = `$${totalFinal.toFixed(2)}`;
-  }
-
-  function eliminarProducto(id) {
-    let carrito = JSON.parse(sessionStorage.getItem("carrito")) || [];
-    carrito = carrito.filter(p => p.id !== id);
-    sessionStorage.setItem("carrito", JSON.stringify(carrito));
-    cargarCarrito();
-  }
-
-  document.addEventListener("DOMContentLoaded", cargarCarrito);
-
-  // Aquí pon tu función completarPedido() igual que ya tienes para procesar la compra
-</script>
-
-</body>
-</html> -->

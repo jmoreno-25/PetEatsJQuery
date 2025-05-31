@@ -1,18 +1,21 @@
 // /public/js/carrito.js
-API_BASE_URL = "http://backendpeteatsclient.runasp.net/api/facturas"; // Cambia esto por la URL de tu API de productos
-API_BASE_URL_DETALLE = "http://backendpeteatsclient.runasp.net/api/detallefacturas"; // Cambia esto por la URL de tu API
+
+const API_BASE_URL = "http://backendpeteatsclient.runasp.net/api/facturas";
+const API_BASE_URL_DETALLE = "http://backendpeteatsclient.runasp.net/api/detallefacturas";
+
 function cargarCarrito() {
   const contenedor = document.getElementById("carrito-contenedor");
   const total = document.getElementById("total-carrito");
 
   let carrito = JSON.parse(sessionStorage.getItem("carrito")) || [];
-  contenedor.innerHTML = "";
 
+  contenedor.innerHTML = "";
   let subtotal = 0;
 
   if (carrito.length === 0) {
     contenedor.innerHTML = "<p>No hay productos en el carrito.</p>";
     total.textContent = "0.00";
+    actualizarContadorCarrito();
     return;
   }
 
@@ -45,9 +48,9 @@ function cargarCarrito() {
   `;
 
   total.innerHTML = resumen;
+  actualizarContadorCarrito();
 }
-const carrito = JSON.parse(sessionStorage.getItem("carrito"));
-const usuario = JSON.parse(sessionStorage.getItem("usuario"));
+
 function calcularTotales(carrito) {
   let subtotal = 0;
   carrito.forEach(item => {
@@ -57,6 +60,7 @@ function calcularTotales(carrito) {
   const total = subtotal + iva;
   return { subtotal, iva, total };
 }
+
 function enviarDetallesFactura(facturaId, detalles) {
   const detallesConFactura = detalles.map(d => ({
     FAC_ID: facturaId,
@@ -72,6 +76,7 @@ function enviarDetallesFactura(facturaId, detalles) {
     data: JSON.stringify(detallesConFactura),
   });
 }
+
 function completarPedido() {
   const carrito = JSON.parse(sessionStorage.getItem("carrito"));
   const usuario = JSON.parse(sessionStorage.getItem("usuario"));
@@ -88,7 +93,6 @@ function completarPedido() {
 
   const { subtotal, iva, total } = calcularTotales(carrito);
 
-  // Crear la factura (cabecera)
   $.ajax({
     url: API_BASE_URL,
     method: 'POST',
@@ -102,14 +106,12 @@ function completarPedido() {
     success: function(response) {
       const facturaId = response.facturaId || response;
 
-      // Mapear carrito a detalles con las propiedades esperadas
       const detalles = carrito.map(item => ({
         PRD_ID: item.id,
         DF_CANTIDAD: item.cantidad,
         DF_PRECIO: item.precio
       }));
 
-      // Enviar detalles de factura
       enviarDetallesFactura(facturaId, detalles)
         .done(() => {
           sessionStorage.removeItem("carrito");
@@ -132,9 +134,19 @@ function eliminarProducto(id) {
   cargarCarrito();
 }
 
-// function completarPedido() {
-//   sessionStorage.removeItem("carrito");
-//   window.location.href = "/public/paginas/Carrito/Confirmacion.html";
-// }
+// ✅ Función para mantener el contador actualizado en todas las páginas
+function actualizarContadorCarrito() {
+  let carrito = JSON.parse(sessionStorage.getItem("carrito")) || [];
+  const totalCantidad = carrito.reduce((sum, p) => sum + (p.cantidad || 0), 0);
+  const contador = document.getElementById("contador-carrito");
+  if (contador) {
+    contador.textContent = totalCantidad;
+    contador.style.display = totalCantidad > 0 ? "inline-block" : "none";
+  }
+}
 
-document.addEventListener("DOMContentLoaded", cargarCarrito);
+// ✅ Ejecutar al cargar la página del carrito
+document.addEventListener("DOMContentLoaded", function() {
+  cargarCarrito();
+  actualizarContadorCarrito();
+});

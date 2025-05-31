@@ -1160,3 +1160,113 @@ footer {
   }
 }
 
+.contador-carrito {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: #f16a40; /* Naranja PetEats */
+  color: white;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 12px;
+  font-weight: bold;
+  z-index: 10;
+}
+.animacion-circulo {
+  position: fixed;
+  width: 20px;
+  height: 20px;
+  background-color: orange;
+  border-radius: 50%;
+  z-index: 9999;
+  pointer-events: none;
+  transition: transform 0.8s ease-in-out, top 0.8s, left 0.8s;
+}
+.banner-principal {
+  background-image: url('/public/img/banner-mascota.jpg'); /* Cambia por tu imagen */
+  background-size: cover;
+  background-position: center;
+  height: 60vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+.contenido-banner {
+  background-color: rgba(0, 0, 0, 0.4);
+  padding: 30px 50px;
+  border-radius: 20px;
+}
+
+.contenido-banner h2 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+.contenido-banner p {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+.btn-video {
+  background-color: #f16a40;
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 30px;
+  transition: background-color 0.3s;
+}
+
+.btn-video:hover {
+  background-color: #d45833;
+}
+
+@media (max-width: 768px) {
+  .contenido-banner {
+    padding: 20px;
+  }
+
+  .contenido-banner h2 {
+    font-size: 2rem;
+  }
+
+  .contenido-banner p {
+    font-size: 1rem;
+  }
+}
+.seccion-video-full {
+  width: 100%;
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+.video-full {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  border: none;
+  outline: none;
+  max-height: 600px; /* Puedes ajustar si lo quieres más bajo o más alto */
+}
+.seccion-video-limitado {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 30px 0;
+  background-color: #fffaf6; /* Color suave de fondo */
+}
+
+.video-limitado {
+  width: 90%;
+  max-width: 1200px; /* Coincide con tus contenedores */
+  height: auto;
+  border-radius: 16px;
+  object-fit: cover;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+}
