@@ -21,9 +21,7 @@ function cargarProductosDestacados() {
 
           <div class="acciones_producto">
             <label for="cantidad-${p.PRD_ID}">Cantidad:</label>
-            <select id="cantidad-${p.PRD_ID}" class="cantidad_producto">
-              <option>1</option><option>2</option><option>3</option>
-            </select>
+            <input type="number" id="cantidad-${p.PRD_ID}" class="cantidad_producto" min="0" max="200" placeholder="Seleccione" step="1" />
           </div>
 
           <button class="añadir_carrito"

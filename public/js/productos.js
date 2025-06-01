@@ -26,9 +26,7 @@ function renderizarProductos(lista) {
       <p class="precio">$${p.PRD_PRECIO.toFixed(2)}</p>
       <div class="acciones_producto">
         <label for="cantidad-${p.PRD_ID}">Cantidad:</label>
-        <select id="cantidad-${p.PRD_ID}" class="cantidad_producto">
-          <option>1</option><option>2</option><option>3</option>
-        </select>
+        <input type="number" id="cantidad-${p.PRD_ID}" class="cantidad_producto" min="0" max="200" placeholder="Seleccione" step="1" />
       </div>
       <button class="añadir_carrito" onclick="agregarAlCarrito(${p.PRD_ID}, '${p.PRD_NOMBRE}', ${p.PRD_PRECIO}, '${p.PRD_IMAGEN}')">
         Agregar al carrito
