@@ -92,37 +92,41 @@ function completarPedido() {
   }
 
   const { subtotal, iva, total } = calcularTotales(carrito);
-
+  const detalles = carrito.map(item => ({
+        PRD_ID: item.id,
+        DF_CANTIDAD: item.cantidad,
+        DF_PRECIO: item.precio
+      }));
   $.ajax({
     url: API_BASE_URL,
     method: 'POST',
     contentType: 'application/json',
     data: JSON.stringify({
-      CLI_CEDULA_RUC: usuario.CLI_CEDULA_RUC,
-      FAC_SUBTOTAL: subtotal,
-      FAC_IVA: iva,
-      FAC_TOTAL: total
+      Cedula: usuario.CLI_CEDULA_RUC,
+      SubTotal: subtotal,
+      Iva: iva,
+      Total: total,
+      cuentaDest: 114,
+      Detalles: detalles
     }),
     success: function(response) {
-      const facturaId = response.facturaId || response;
-
-      const detalles = carrito.map(item => ({
-        PRD_ID: item.id,
-        DF_CANTIDAD: item.cantidad,
-        DF_PRECIO: item.precio
-      }));
-
-      enviarDetallesFactura(facturaId, detalles)
-        .done(() => {
-          sessionStorage.removeItem("carrito");
-          window.location.href = "/public/pages/Carrito/Confirmacion.html";
-        })
-        .fail(() => {
-          alert("Error al guardar los detalles del pedido");
-        });
+    // Si fue exitoso, rediriges
+    sessionStorage.removeItem("carrito"); // Limpiamos el carrito
+    window.location.href = "/public/pages/Carrito/Confirmacion.html";
     },
-    error: function() {
-      alert("Error al crear la factura");
+    error: function(jqXHR) {
+      // Intentamos obtener el mensaje de error devuelto por la API
+      let mensaje = "Error desconocido";
+
+      if (jqXHR.responseJSON && jqXHR.responseJSON.Message) {
+        // En caso de que uses InternalServerError(e) que suele enviar Message
+        mensaje = jqXHR.responseJSON.Message;
+      } else if (jqXHR.responseText) {
+        // Si envías BadRequest("texto") el texto está en responseText
+        mensaje = jqXHR.responseText;
+      }
+
+      alert("Error: " + mensaje);
     }
   });
 }
