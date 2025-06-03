@@ -1,7 +1,7 @@
 // /public/js/carrito.js
 
-const API_BASE_URL = "http://backendpeteatsclient.runasp.net/api/facturas";
-const API_BASE_URL_DETALLE = "http://backendpeteatsclient.runasp.net/api/detallefacturas";
+const API_BASE_URL = "https://backendpeteatsclient.runasp.net/api/facturas";
+const API_BASE_URL_DETALLE = "https://backendpeteatsclient.runasp.net/api/detallefacturas";
 
 function cargarCarrito() {
   const contenedor = document.getElementById("carrito-contenedor");

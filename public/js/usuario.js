@@ -1,5 +1,5 @@
 // /public/js/usuario.js
-API_BASE_URL = "http://backendpeteatsclient.runasp.net/api/usuario"; // Cambia esto por la URL de tu API // Cambia esto por la URL de tu API
+API_BASE_URL = "https://backendpeteatsclient.runasp.net/api/usuario"; // Cambia esto por la URL de tu API // Cambia esto por la URL de tu API
 function iniciarSesion() {
   const correo = document.getElementById("loginCorreo").value.trim();
   const password = document.getElementById("loginPassword").value.trim();

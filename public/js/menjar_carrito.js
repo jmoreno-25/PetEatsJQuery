@@ -1,4 +1,4 @@
-﻿const API_BASE_URL_STOCK = "http://backendpeteats.runasp.net/api/integracion/stock";
+﻿const API_BASE_URL_STOCK = "https://backendpeteats.runasp.net/api/integracion/stock";
 
 function agregarAlCarrito(id, nombre, precio, imagen) {
   let cantidad = parseInt(document.getElementById('cantidad-' + id).value);

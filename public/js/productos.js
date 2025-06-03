@@ -1,5 +1,5 @@
-const API_BASE_URL = "http://backendpeteatsclient.runasp.net/api/productos";
-const API_BASE_URL_CATEGORIAS = "http://backendpeteats.runasp.net/api/productos/categorias";
+const API_BASE_URL = "https://backendpeteatsclient.runasp.net/api/productos";
+const API_BASE_URL_CATEGORIAS = "https://backendpeteats.runasp.net/api/productos/categorias";
 
 let productos = [];
 let categorias = [];
