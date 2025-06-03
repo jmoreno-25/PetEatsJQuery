@@ -1,4 +1,4 @@
-const API_BASE_URL = "http://backendpeteatsclient.runasp.net/api/Productos/productos-destacados";
+const API_BASE_URL = "https://backendpeteatsclient.runasp.net/api/Productos/productos-destacados";
 
 function cargarProductosDestacados() {
   $.ajax({

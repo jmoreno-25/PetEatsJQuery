@@ -59,8 +59,7 @@ function registrarUsuario() {
       Usuario: usuario
     }),
     success: function (data) {
-      sessionStorage.setItem("usuario", JSON.stringify({ nombre, usuario }));
-      window.location.href = "/index.html";
+      window.location.href = "/public/pages/Usuario/Login.html";
     },
     error: function (xhr, status, error) {
       console.error("Error al registrar usuario:", xhr.responseText || error);
