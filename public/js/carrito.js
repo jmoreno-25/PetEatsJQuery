@@ -154,8 +154,8 @@ $.ajax({
     // Generar el PDF con los detalles de la factura
     generarPDF(factura);
     // Si fue exitoso, rediriges
-    //sessionStorage.removeItem("carrito"); // Limpiamos el carrito
-    //window.location.href = "/public/pages/Carrito/Confirmacion.html";
+    sessionStorage.removeItem("carrito"); // Limpiamos el carrito
+    window.location.href = "/public/pages/Carrito/Confirmacion.html";
     },
     error: function(jqXHR) {
       // Intentamos obtener el mensaje de error devuelto por la API
