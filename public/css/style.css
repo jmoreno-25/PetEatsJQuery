@@ -375,6 +375,7 @@ footer {
     background-color: #FFFFFF; /* Fondo blanco */
 }
 
+
 .best_sellers {
     display: flex;
     justify-content: space-between;
@@ -1261,6 +1262,215 @@ footer {
   padding: 30px 0;
   background-color: #fffaf6; /* Color suave de fondo */
 }
+
+/* =========================== */
+/*        MODO OSCURO         */
+/* =========================== */
+
+/* Fondo general */
+body.dark-mode {
+  background-color: #10271a;
+  color: #f1f1f1;
+}
+
+/* Header y footer */
+body.dark-mode header.cabecera,
+body.dark-mode footer {
+  background-color: #2d6a4f;
+  color: #f1f1f1;
+  border-bottom: 2px solid #95c799;
+}
+
+
+
+/* Enlaces e iconos */
+body.dark-mode a,
+body.dark-mode .menu ul li a,
+body.dark-mode .logo-texto h1 a,
+body.dark-mode .iconos-header i,
+body.dark-mode .iconos-header a {
+  color: #95c799 !important;
+}
+
+/* Títulos */
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode h4,
+body.dark-mode h5,
+body.dark-mode h6 {
+  color: #95c799;
+}
+
+/* Botones */
+body.dark-mode .boton_carrito,
+body.dark-mode button,
+body.dark-mode input[type="submit"],
+body.dark-mode .btn-completar,
+body.dark-mode .btn-cerrar-sesion {
+  background: #10271a;
+  color: #95c799;
+  border: 1px solid #95c799;
+}
+
+body.dark-mode .boton_carrito:hover,
+body.dark-mode button:hover,
+body.dark-mode .btn-completar:hover {
+  background: #95c799;
+  color: #1b4332;
+}
+
+/* Botón cerrar sesión especial */
+body.dark-mode .btn-cerrar-sesion {
+  background-color: #e76f51;
+  color: white !important;
+  border: none;
+}
+body.dark-mode .btn-cerrar-sesion:hover {
+  background-color: #b14545;
+}
+
+/* Vista principal */
+body.dark-mode .vista_principal {
+  background-image: url('/public/img/principal.jpg');
+  background-color: #183d2b; /* fallback si no carga imagen */
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  display: block;
+  text-align: center;
+  padding: 0;
+  box-sizing: border-box;
+  position: relative;
+}
+
+/* Capa de la vista principal */
+body.dark-mode .vista_principal_capa {
+  background-color: rgba(16, 39, 26, 0.6);
+  padding: 40px 30px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Textos en la vista principal */
+body.dark-mode .vista_principal_texto h2 {
+  font-size: 35px;
+  color: #95c799;
+}
+
+body.dark-mode .vista_principal_texto p {
+  font-size: 20px;
+  color: #e0e0e0;
+}
+
+/* Contenedores blancos corregidos */
+body.dark-mode .registro-seccion,
+body.dark-mode .login-seccion,
+body.dark-mode .perfil-usuario {
+  background-color: #183d2b;
+  color: #f1f1f1;
+  border: 1px solid #95c799;
+}
+
+body.dark-mode .perfil-detalles p,
+body.dark-mode .registro-seccion p {
+  color: #e0e0e0;
+}
+
+body.dark-mode .registro-seccion h2,
+body.dark-mode .login-seccion h2,
+body.dark-mode .perfil-usuario h2 {
+  color: #95c799;
+}
+
+/* Inputs y selects */
+body.dark-mode input,
+body.dark-mode textarea,
+body.dark-mode select {
+  background: #10271a;
+  color: #f1f1f1;
+  border: 1px solid #95c799;
+}
+
+/* Tarjetas y categorías */
+body.dark-mode .tarjeta_producto,
+body.dark-mode .categoria-tarjeta,
+body.dark-mode .contenedor_productos,
+body.dark-mode .contenedor-categorias,
+body.dark-mode section,
+body.dark-mode .bone-3d {
+  background: #10271a !important;
+  color: #f1f1f1;
+  border-color: #95c799 !important;
+}
+
+/* Separadores y líneas */
+body.dark-mode hr {
+  border-color: #95c799;
+}
+/* Estilo para enlaces e íconos del footer según el modo */
+.footer-link {
+  color: #333;
+}
+body.dark-mode .footer-link {
+  color: #d6f5e3 !important;
+}
+
+/* =========================== */
+/*        FOOTER OSCURO       */
+/* =========================== */
+
+/* Íconos y textos del footer */
+.footer-icon {
+  color: #333;
+}
+body.dark-mode .footer-icon {
+  color: #d6f5e3 !important;
+}
+
+.footer-copy {
+  color: #666;
+}
+body.dark-mode .footer-copy {
+  color: #ccc;
+}
+
+/* Footer principal adaptable */
+.footer-personalizado {
+  background-color: rgba(245, 245, 245, 0.95); /* tono claro con opacidad */
+  color: #333;
+}
+.footer-personalizado a,
+.footer-personalizado p,
+.footer-personalizado small {
+  color: #444;
+}
+
+body.dark-mode .footer-personalizado {
+  background-color: rgba(16, 39, 26, 0.9); /* verde oscuro translúcido */
+  color: #f1f1f1;
+}
+body.dark-mode .footer-personalizado a,
+body.dark-mode .footer-personalizado p,
+body.dark-mode .footer-personalizado small {
+  color: #d6f5e3 !important;
+}
+
+/* =========================== */
+/*     CONTENEDORES OSCUROS    */
+/* =========================== */
+
+.dark_container {
+  background-color: rgba(16, 39, 26, 0.85);
+}
+
+.dark_content {
+  padding: 40px 20px;
+  text-align: center;
+  background-color: rgba(16, 39, 26, 0.85);
+}
+
 
 .video-limitado {
   width: 90%;
