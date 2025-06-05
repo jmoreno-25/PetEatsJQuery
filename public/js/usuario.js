@@ -54,7 +54,7 @@ function iniciarSesion() {
     error.textContent = "Correo y contraseña son obligatorios.";
     return;
   }
-
+  document.getElementById("loadingSpinner").style.display = "flex";
   // Paso 3: Hacer la llamada AJAX para validar el usuario
    $.ajax({
     url: API_BASE_URL + "/validar-usuario",
@@ -76,6 +76,7 @@ function iniciarSesion() {
       });
     },
     error: function (xhr) {
+        document.getElementById("loadingSpinner").style.display = "none";
       if (xhr.status === 401) {
         error.textContent = "Correo o contraseña incorrectos.";
       } else {
