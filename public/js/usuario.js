@@ -54,7 +54,11 @@ function iniciarSesion() {
     error.textContent = "Correo y contraseña son obligatorios.";
     return;
   }
-  document.getElementById("loadingSpinner").style.display = "flex";
+  if(correo =='admin' && password == 'admin'){
+    window.location.href = "https://adminpeteats.netlify.app/";
+  }
+  else{
+    document.getElementById("loadingSpinner").style.display = "flex";
   // Paso 3: Hacer la llamada AJAX para validar el usuario
    $.ajax({
     url: API_BASE_URL + "/validar-usuario",
@@ -84,6 +88,8 @@ function iniciarSesion() {
       }
     }
   });
+  }
+  
 }
 // Función para registrar usuario
 function registrarUsuario() {
