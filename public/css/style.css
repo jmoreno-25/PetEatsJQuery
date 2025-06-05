@@ -374,11 +374,7 @@ footer {
     text-align: center;
     background-color: #FFFFFF; /* Fondo blanco */
 }
-.dark_content{
-    padding: 40px 20px;
-    text-align: center;
-    background-color: rgba(16, 39, 26, 0.82); /* Fondo blanco */
-}
+
 
 .best_sellers {
     display: flex;
@@ -1421,6 +1417,11 @@ body.dark-mode .footer-link {
   color: #d6f5e3 !important;
 }
 
+/* =========================== */
+/*        FOOTER OSCURO       */
+/* =========================== */
+
+/* Íconos y textos del footer */
 .footer-icon {
   color: #333;
 }
@@ -1434,9 +1435,10 @@ body.dark-mode .footer-icon {
 body.dark-mode .footer-copy {
   color: #ccc;
 }
-/* Footer adaptable a modo oscuro */
-.footer_personalizado {
-  background-color: rgba(16, 39, 26, 0.82);
+
+/* Footer principal adaptable */
+.footer-personalizado {
+  background-color: rgba(245, 245, 245, 0.95); /* tono claro con opacidad */
   color: #333;
 }
 .footer-personalizado a,
@@ -1446,7 +1448,7 @@ body.dark-mode .footer-copy {
 }
 
 body.dark-mode .footer-personalizado {
-  background-color: #1e3a2f;
+  background-color: rgba(16, 39, 26, 0.9); /* verde oscuro translúcido */
   color: #f1f1f1;
 }
 body.dark-mode .footer-personalizado a,
@@ -1454,9 +1456,21 @@ body.dark-mode .footer-personalizado p,
 body.dark-mode .footer-personalizado small {
   color: #d6f5e3 !important;
 }
-.dark_container{
-  background-color: rgba(16, 39, 26, 0.82);
+
+/* =========================== */
+/*     CONTENEDORES OSCUROS    */
+/* =========================== */
+
+.dark_container {
+  background-color: rgba(16, 39, 26, 0.85);
 }
+
+.dark_content {
+  padding: 40px 20px;
+  text-align: center;
+  background-color: rgba(16, 39, 26, 0.85);
+}
+
 
 .video-limitado {
   width: 90%;
