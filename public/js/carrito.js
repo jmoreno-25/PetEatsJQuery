@@ -106,7 +106,7 @@ const detalles = carrito.map(item => ({
 
 // Verificar detalles
 console.log("Detalles de los productos:", detalles);
-
+document.getElementById("loadingSpinner").style.display = "flex";
 $.ajax({
   url: API_BASE_URL,
   method: 'POST',
@@ -158,6 +158,7 @@ $.ajax({
     window.location.href = "/public/pages/Carrito/Confirmacion.html";
     },
     error: function(jqXHR) {
+      document.getElementById("loadingSpinner").style.display = "none";
       // Intentamos obtener el mensaje de error devuelto por la API
       let mensaje = "Error desconocido";
 

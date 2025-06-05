@@ -126,7 +126,7 @@ function registrarUsuario() {
     error.textContent = "Las contraseñas no coinciden.";
     return;
   }
-
+  document.getElementById("loadingSpinner").style.display = "flex";
   // Paso 2: Realizar el registro
  $.ajax({
   url: API_BASE_URL,

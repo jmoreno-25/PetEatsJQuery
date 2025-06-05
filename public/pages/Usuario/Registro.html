@@ -8,6 +8,36 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="/public/js/shared.js"></script>
 
+  <!-- Estilos para el spinner -->
+  <style>
+    .spinner-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      display: none;
+    }
+
+    .spinner {
+      border: 8px solid #f3f3f3;
+      border-top: 8px solid #28a745;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: girar 1s linear infinite;
+    }
+
+    @keyframes girar {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
 </head>
 <body>
   <div id="header-container"></div>
@@ -31,6 +61,11 @@
     </div>
   </section>
 
+  <!-- Spinner de carga -->
+  <div id="loadingSpinner" class="spinner-overlay">
+    <div class="spinner"></div>
+  </div>
+
   <div id="footer-container"></div>
 
   <script src="/public/js/usuario.js"></script>
@@ -44,37 +79,33 @@
       .then(data => document.getElementById("footer-container").innerHTML = data);
   </script>
   <script>
-  function toggleMenu() {
-    const menu = document.querySelector('.menu');
-    menu.classList.toggle('mostrar');
-  }
-</script>
-<script>
-function aplicarModoOscuro() {
-  const dark = localStorage.getItem('dark-mode') === 'true';
-  document.body.classList.toggle('dark-mode', dark);
-  // Cambia el icono del botón
-  const btn = document.getElementById('toggle-dark');
-  if (btn) {
-    btn.innerHTML = dark
-      ? '<i class="bi bi-brightness-high"></i>'
-      : '<i class="bi bi-moon"></i>';
-  }
-}
-
-// Espera a que el header esté cargado
-document.addEventListener('DOMContentLoaded', function() {
-  aplicarModoOscuro();
-  // Delegación porque el header se carga por fetch
-  document.body.addEventListener('click', function(e) {
-    if (e.target.closest('#toggle-dark')) {
-      const dark = !(localStorage.getItem('dark-mode') === 'true');
-      localStorage.setItem('dark-mode', dark);
-      aplicarModoOscuro();
+    function toggleMenu() {
+      const menu = document.querySelector('.menu');
+      menu.classList.toggle('mostrar');
     }
-  });
-});
-</script>
+  </script>
+  <script>
+    function aplicarModoOscuro() {
+      const dark = localStorage.getItem('dark-mode') === 'true';
+      document.body.classList.toggle('dark-mode', dark);
+      const btn = document.getElementById('toggle-dark');
+      if (btn) {
+        btn.innerHTML = dark
+          ? '<i class="bi bi-brightness-high"></i>'
+          : '<i class="bi bi-moon"></i>';
+      }
+    }
 
+    document.addEventListener('DOMContentLoaded', function () {
+      aplicarModoOscuro();
+      document.body.addEventListener('click', function (e) {
+        if (e.target.closest('#toggle-dark')) {
+          const dark = !(localStorage.getItem('dark-mode') === 'true');
+          localStorage.setItem('dark-mode', dark);
+          aplicarModoOscuro();
+        }
+      });
+    });
+  </script>
 </body>
 </html>
