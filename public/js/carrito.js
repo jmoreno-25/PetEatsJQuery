@@ -2,53 +2,121 @@
 
 const API_BASE_URL = "https://backendpeteatsclient.runasp.net/api/facturas";
 const API_BASE_URL_DETALLE = "https://backendpeteatsclient.runasp.net/api/detallefacturas";
+function cambiarCantidad(id, cambio) {
+  let carrito = JSON.parse(sessionStorage.getItem("carrito")) || [];
+  const producto = carrito.find(p => p.id === id);
+  if (!producto) return;
+
+  const nuevaCantidad = producto.cantidad + cambio;
+  if (nuevaCantidad >= 1) {
+    producto.cantidad = nuevaCantidad;
+    sessionStorage.setItem("carrito", JSON.stringify(carrito));
+    cargarCarrito();
+  }
+}
+// function cargarCarrito() {
+//   const contenedor = document.getElementById("carrito-contenedor");
+//   const total = document.getElementById("total-carrito");
+
+//   let carrito = JSON.parse(sessionStorage.getItem("carrito")) || [];
+
+//   contenedor.innerHTML = "";
+//   let subtotal = 0;
+
+//   if (carrito.length === 0) {
+//     contenedor.innerHTML = "<p>No hay productos en el carrito.</p>";
+//     total.textContent = "0.00";
+//     actualizarContadorCarrito();
+//     return;
+//   }
+  
+//   carrito.forEach(p => {
+//     const card = document.createElement("div");
+//     card.className = "tarjeta_producto";
+
+//     const sub = p.precio * p.cantidad;
+//     subtotal += sub;
+
+//     card.innerHTML = `
+//       <img src="${p.imagen}" alt="${p.nombre}" style="width:100%; height:180px; object-fit:cover; border-radius:10px;">
+//       <h3>${p.nombre}</h3>
+//       <p>
+//         <strong>Cantidad:</strong>
+//         <button onclick="cambiarCantidad(${p.id}, -1)" style="margin: 0 5px;">−</button>
+//         <span id="cantidad-${p.id}">${p.cantidad}</span>
+//         <button onclick="cambiarCantidad(${p.id}, 1)" style="margin: 0 5px;">+</button>
+//       </p>
+//       <p><strong>Precio:</strong> $${p.precio.toFixed(2)}</p>
+//       <p><strong>Subtotal:</strong> $${sub.toFixed(2)}</p>
+//       <button class="btn-cerrar-sesion" onclick="eliminarProducto(${p.id})">Eliminar</button>
+//     `;
+
+//     contenedor.appendChild(card);
+//   });
+
+//   const iva = subtotal * 0.15;
+//   const totalFinal = subtotal + iva;
+
+//   const resumen = `
+//     <p>Subtotal: $${subtotal.toFixed(2)}</p>
+//     <p>IVA (15%): $${iva.toFixed(2)}</p>
+//     <h3>Total: $${totalFinal.toFixed(2)}</h3>
+//   `;
+
+//   total.innerHTML = resumen;
+//   actualizarContadorCarrito();
+// }
 
 function cargarCarrito() {
   const contenedor = document.getElementById("carrito-contenedor");
-  const total = document.getElementById("total-carrito");
+  const subtotalEl = document.getElementById("subtotal");
+  const ivaEl = document.getElementById("iva");
+  const totalEl = document.getElementById("total");
 
   let carrito = JSON.parse(sessionStorage.getItem("carrito")) || [];
-
   contenedor.innerHTML = "";
-  let subtotal = 0;
 
   if (carrito.length === 0) {
     contenedor.innerHTML = "<p>No hay productos en el carrito.</p>";
-    total.textContent = "0.00";
-    actualizarContadorCarrito();
+    subtotalEl.textContent = "$0.00";
+    ivaEl.textContent = "$0.00";
+    totalEl.textContent = "$0.00";
     return;
   }
 
-  carrito.forEach(p => {
-    const card = document.createElement("div");
-    card.className = "tarjeta_producto";
+  let subtotal = 0;
 
+  carrito.forEach(p => {
     const sub = p.precio * p.cantidad;
     subtotal += sub;
 
-    card.innerHTML = `
-      <img src="${p.imagen}" alt="${p.nombre}" style="width:100%; height:180px; object-fit:cover; border-radius:10px;">
-      <h3>${p.nombre}</h3>
-      <p>Precio: $${p.precio.toFixed(2)}</p>
-      <p>Cantidad: ${p.cantidad}</p>
-      <p><strong>Subtotal:</strong> $${sub.toFixed(2)}</p>
-      <button class="btn-cerrar-sesion" onclick="eliminarProducto(${p.id})">Eliminar</button>
+    const item = document.createElement("div");
+    item.className = "d-flex align-items-center p-3 border rounded bg-white shadow-sm";
+    item.innerHTML = `
+      <img src="${p.imagen}" alt="${p.nombre}" class="me-3 rounded" style="width: 70px; height: 70px; object-fit: cover;">
+      <div class="flex-grow-1">
+        <h6 class="mb-1">${p.nombre}</h6>
+        <div class="d-flex align-items-center gap-2">
+          <button class="btn btn-sm btn-outline-secondary" onclick="cambiarCantidad(${p.id}, -1)">−</button>
+          <span id="cantidad-${p.id}">${p.cantidad}</span>
+          <button class="btn btn-sm btn-outline-secondary" onclick="cambiarCantidad(${p.id}, 1)">+</button>
+          <small class="text-muted ms-3">Precio: $${p.precio.toFixed(2)}</small>
+        </div>
+      </div>
+      <div class="text-end">
+        <strong>$${sub.toFixed(2)}</strong><br>
+        <button class="btn btn-sm text-danger" onclick="eliminarProducto(${p.id})">&times;</button>
+      </div>
     `;
-
-    contenedor.appendChild(card);
+    contenedor.appendChild(item);
   });
 
   const iva = subtotal * 0.15;
-  const totalFinal = subtotal + iva;
+  const total = subtotal + iva;
 
-  const resumen = `
-    <p>Subtotal: $${subtotal.toFixed(2)}</p>
-    <p>IVA (15%): $${iva.toFixed(2)}</p>
-    <h3>Total: $${totalFinal.toFixed(2)}</h3>
-  `;
-
-  total.innerHTML = resumen;
-  actualizarContadorCarrito();
+  subtotalEl.textContent = `$${subtotal.toFixed(2)}`;
+  ivaEl.textContent = `$${iva.toFixed(2)}`;
+  totalEl.textContent = `$${total.toFixed(2)}`;
 }
 
 function calcularTotales(carrito) {
