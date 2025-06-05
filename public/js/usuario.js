@@ -40,7 +40,7 @@ function validarContrasena(contrasena) {
   return regex.test(contrasena);
 }
 function validarCorreo(correo) {
-  const regex = /^[a-zA-Z0-9._%+-]+@(?:gmail\.com|outlook\.com|hotmail\.com|yahoo\.com|puce\.edu\.ec)$/i;
+  const regex = /^[a-zA-Z0-9._%+-]+@(?:gmail\.com|hotmail\.com|yahoo\.com|outlook\.com|puce\.edu\.ec|espe\.edu\.ec|uio\.edu\.ec|[\w.-]+\.(com|ec|edu\.ec|gob\.ec))$/i;
   return regex.test(correo);
 }
 // Función para iniciar sesión
