@@ -39,7 +39,10 @@ function validarContrasena(contrasena) {
   const regex = /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$/;
   return regex.test(contrasena);
 }
-
+function validarCorreo(correo) {
+  const regex = /^[a-zA-Z0-9._%+-]+@(?:gmail\.com|hotmail\.com|yahoo\.com|outlook\.com|puce\.edu\.ec|espe\.edu\.ec|uio\.edu\.ec|[\w.-]+\.(com|ec|edu\.ec|gob\.ec))$/i;
+  return regex.test(correo);
+}
 // Función para iniciar sesión
 function iniciarSesion() {
   const correo = document.getElementById("loginCorreo").value.trim();
@@ -109,6 +112,10 @@ function registrarUsuario() {
   }
   if (!validarTelefono(telefono)) {
     error.textContent = "El teléfono debe tener 10 dígitos y empezar con 0.";
+    return;
+  }
+  if(!validarCorreo(correo)){
+    error.textContent = "El correo debe ser válido al contener @ y un dominio legitimo (.com,.ec,.edu)"
     return;
   }
   if (!validarContrasena(password)) {
