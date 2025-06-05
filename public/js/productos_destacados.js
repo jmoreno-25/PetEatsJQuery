@@ -24,10 +24,9 @@ function cargarProductosDestacados() {
             <input type="number" id="cantidad-${p.PRD_ID}" class="cantidad_producto" min="0" max="200" placeholder="Seleccione" step="1" />
           </div>
 
-          <button class="añadir_carrito"
-            onclick="agregarAlCarrito(${p.PRD_ID}, '${p.PRD_NOMBRE}', ${p.PRD_PRECIO}, '${p.PRD_IMAGEN}', document.getElementById('cantidad-${p.PRD_ID}').value)">
-            Agregar al carrito
-          </button>
+          <button class="añadir_carrito" onclick="agregarAlCarrito(${p.PRD_ID}, '${p.PRD_NOMBRE}', ${p.PRD_PRECIO}, '${p.PRD_IMAGEN}')">
+        Agregar al carrito
+        </button>
         `;
 
         contenedor.appendChild(card);
