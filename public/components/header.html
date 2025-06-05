@@ -1,46 +1,80 @@
-<header class="cabecera">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
-
-  <div class="logo logo-con-modelo">
-    <model-viewer 
-      src="/public/img/dog-bowl.glb" 
-      auto-rotate 
-      camera-controls 
-      disable-zoom 
-      style="width: 60px; height: 60px; margin-right: 10px;">
-    </model-viewer>
-    <div class="logo-texto">
-      <h1><a href="/index.html" style="text-decoration: none; color: black;">PetEats</a></h1>
-      <p>Consiente a tu mascota</p>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PetEats - Consiente a tu mascota</title>
+    <link rel="stylesheet" href="/public/css/estilos.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+      header.cabecera {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+        background: #fff;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      }
+      body {
+        /* Agrega un padding-top igual a la altura del header para evitar que el contenido quede oculto */
+        padding-top: 100px;
+      }
+    </style>
+</head>
+<body>
+  <header class="cabecera">
+    <div class="logo logo-con-modelo">
+      <model-viewer 
+        src="/public/img/dog-bowl.glb" 
+        auto-rotate 
+        camera-controls 
+        disable-zoom 
+        style="width: 60px; height: 60px; margin-right: 10px;">
+      </model-viewer>
+      <div class="logo-texto">
+        <h1><a href="/index.html" style="text-decoration: none; color: black;">PetEats</a></h1>
+        <p>Consiente a tu mascota</p>
+      </div>
     </div>
-  </div>
 
-  <nav class="menu">
-    <ul>
-      <li><a href="/index.html">Inicio</a></li>
-      <li><a href="/public/pages/Productos/Index.html">Productos</a></li>
-      <li><a href="/public/pages/Nosotros/Index.html">Nosotros</a></li>
-      <li><a href="/public/pages/Contacto/Index.html">Contacto</a></li>
-    </ul>
-  </nav>
+    <nav class="menu">
+      <ul>
+        <li><a href="/index.html">Inicio</a></li>
+        <li><a href="/public/pages/Productos/Index.html">Productos</a></li>
+        <li><a href="/public/pages/Nosotros/Index.html">Nosotros</a></li>
+        <li><a href="/public/pages/Contacto/Index.html">Contacto</a></li>
+      </ul>
+    </nav>
 
-  <div class="iconos-header">
-    <div class="menu-hamburguesa" onclick="toggleMenu()">☰</div>
+    <div class="iconos-header">
+      <div class="menu-hamburguesa" onclick="toggleMenu()">☰</div>
 
-    <i class="bi bi-search busqueda-toggle" style="font-size: 1.5rem; cursor: pointer;"></i>
-    <input type="text" id="inputBuscar" placeholder="Buscar productos..." class="form-busqueda" />
+      <i class="bi bi-search busqueda-toggle" style="font-size: 1.5rem; cursor: pointer;"></i>
+      <input type="text" id="inputBuscar" placeholder="Buscar productos..." class="form-busqueda" />
 
-    <!-- Carrito con contador -->
-    <div id="carrito-icono" style="position: relative;">
-      <a href="/public/pages/Carrito/Index.html" class="icono-carrito">
-        <i class="bi bi-cart" style="font-size: 1.5rem;"></i>
+      <!-- Carrito con contador -->
+      <div id="carrito-icono" style="position: relative;">
+        <a href="/public/pages/Carrito/Index.html" class="icono-carrito">
+          <i class="bi bi-cart" style="font-size: 1.5rem;"></i>
+        </a>
+        <span id="contador-carrito" class="contador-carrito">0</span>
+      </div>
+
+      <!-- Perfil -->
+      <a href="/public/pages/Usuario/Index.html" class="icono-perfil">
+        <i class="bi bi-person-circle" style="font-size: 1.5rem;"></i>
       </a>
-      <span id="contador-carrito" class="contador-carrito">0</span>
-    </div>
 
-    <!-- Perfil -->
-    <a href="/public/pages/Usuario/Index.html" class="icono-perfil">
-      <i class="bi bi-person-circle" style="font-size: 1.5rem;"></i>
-    </a>
-  </div>
-</header>
+      <!-- Botón de modo oscuro/claro -->
+      <button id="toggle-dark" style="margin-left:10px; background:none; border:none; cursor:pointer; font-size:1.3rem;" title="Modo oscuro/claro">
+        <i class="bi bi-moon"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Resto del contenido de la página -->
+
+  <script src="/public/js/scripts.js"></script>
+</body>
+</html>
