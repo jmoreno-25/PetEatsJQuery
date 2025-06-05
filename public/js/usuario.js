@@ -116,6 +116,7 @@ function registrarUsuario() {
   }
   if(!validarCorreo(correo)){
     error.textContent = "El correo debe ser válido al contener @ y un dominio legitimo (.com,.ec,.edu)"
+    return;
   }
   if (!validarContrasena(password)) {
     error.textContent = "La contraseña debe tener al menos 8 caracteres, una mayúscula, un número y un carácter especial.";
