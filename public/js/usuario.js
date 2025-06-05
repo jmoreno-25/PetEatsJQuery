@@ -39,7 +39,10 @@ function validarContrasena(contrasena) {
   const regex = /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$/;
   return regex.test(contrasena);
 }
-
+function validarCorreo(correo) {
+  const regex = /^[a-zA-Z0-9._%+-]+@(?:gmail\.com|outlook\.com|hotmail\.com|yahoo\.com|puce\.edu\.ec)$/i;
+  return regex.test(correo);
+}
 // Función para iniciar sesión
 function iniciarSesion() {
   const correo = document.getElementById("loginCorreo").value.trim();
@@ -110,6 +113,9 @@ function registrarUsuario() {
   if (!validarTelefono(telefono)) {
     error.textContent = "El teléfono debe tener 10 dígitos y empezar con 0.";
     return;
+  }
+  if(!validarCorreo(correo)){
+    error.textContent = "El correo debe ser válido al contener @ y un dominio legitimo (.com,.ec,.edu)"
   }
   if (!validarContrasena(password)) {
     error.textContent = "La contraseña debe tener al menos 8 caracteres, una mayúscula, un número y un carácter especial.";
